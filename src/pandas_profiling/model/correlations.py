@@ -122,9 +122,12 @@ class PhiK(Correlation):
 
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            import phik
-
-            correlation = df[selcols].phik_matrix(interval_cols=intcols)
+            try:
+                import phik
+            except ImportError:
+                correlation = None
+            else:
+                correlation = df[selcols].phik_matrix(interval_cols=intcols)
 
         return correlation
 
